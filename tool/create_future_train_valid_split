@@ -1,0 +1,20 @@
+import numpy as np
+
+encoder_result_dir = '/Users/kefei/Documents/Dataset/NTU/single_poses/prediction/'
+future_train = np.load('/Users/kefei/Documents/Dataset/NTU/single_poses/prediction/future_poses_trimmed_15_train.npy')
+z_log_var = np.load(encoder_result_dir+'z_log_var_train.npy')
+z_mean = np.load(encoder_result_dir+'z_mean_train.npy')
+print('future train shape',future_train.shape)
+
+
+data_list = train_test_split(future_train, z_log_var, z_mean, test_size=0.15, random_state=42)
+
+
+from sklearn.model_selection import train_test_split
+data_list = train_test_split(future_train, z_log_var, z_mean, test_size=0.15, random_state=42)
+train = data_list[0]
+z_log_var_train = data_list[2]
+z_mean_train = data_list[4]
+train.shape
+(172715, 16, 75)
+np.save('/Users/kefei/Documents/Dataset/NTU/single_poses/prediction/future_poses_trimmed_15_train_train.npy', train)
